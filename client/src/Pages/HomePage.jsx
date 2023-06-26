@@ -6,21 +6,12 @@ import {FaRupeeSign,FaUserAlt} from 'react-icons/fa'
 import {CiDiscount1} from 'react-icons/ci'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-// import {AiOutlineTeam} from 'react-icons/ai'
 import CreateNote from './CreateNote'
-// import TextAnylzer from './TextAnylzer'
-// import TrashPage from './TrashPage'
 import AllNotes from "../Pages/AllNotes"
-// import {FaCalculator} from "react-icons/fa"
-// import Calculator from './Calculator'
-import User from './User'
 import { useEffect } from 'react'
-// import Contact from './Contact'
-import AdminPage from "./UsersPage"
 import UsersPage from './UsersPage'
 import { baseUrl } from '../Utils/BaseUrl'
 import axios from 'axios'
-// import AdminLogin from './AdminLogin'
 
 
 const Dashboard = () => {
@@ -31,7 +22,6 @@ const Dashboard = () => {
   let r=`Bearer ${localStorage.getItem("token")}`
 
 
-// ........................... Admin Or Sign Button Method ........................
 
 const getShow=()=>{
   if(r=="Bearer null"){
@@ -65,11 +55,10 @@ const getUser=()=>{
   localStorage.setItem("laudcoToken",emptyToken)
   navigate("/login")
 }
-// console.log(Profile)
-  return (
+
+return (
     <Flex w='100%'>               
       <Box id='lhsBox' w={["5%","10%","16%"]} h='100vh' p='20px'>
-            {/* <User/> */}
             <Box h={35}>
               <Text>Hello {profile.name}</Text>
             </Box>

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Box,TableContainer,Table,Thead,Tr,Th,Tbody,Td,Spinner,Image,Flex,Text,Input,Select } from '@chakra-ui/react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 import { baseUrl } from '../Utils/BaseUrl'
 
 const UsersPage = () => {
   const [users,setUsers]=useState([])
   const [loading,setLoading]=useState(false)
-  const navigate=useNavigate()
-  const token = JSON.parse(localStorage.getItem("socialPshcyoToken"))
 
 
 useEffect(()=>{
@@ -69,10 +66,6 @@ const handlePhoneChange = (e) => {
   })
 }
 
-
-// const handleNavigate=(ele)=>{
-//   navigate(`/single/${ele._id}`)
-// }
 
 if(loading){
 return <Spinner textAlign='center' mt={50} ml={50} thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl'/>
