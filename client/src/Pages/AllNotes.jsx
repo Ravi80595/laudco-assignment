@@ -24,7 +24,8 @@ const getData=()=>{
     }
   })
   .then((res)=>{
-    setData(res.data.notes)
+    console.log(res.data)
+    setData(res.data)
   })
 }
 useEffect(()=>{
@@ -36,15 +37,15 @@ useEffect(()=>{
 
 const handleDelete=(noteID)=>{
   setIsLoading(true)
-  axios.delete(`${baseUrl}/delete/${noteID}`,{
+  axios.delete(`${baseUrl}/notes/deleteNote/${noteID}`,{
     headers:{
       authorization:`Bearer ${localStorage.getItem("laudcoToken")}`
     }
   })
   .then((res)=>{
     setIsLoading(false)
-    getData()
     alert("Note Deleted Successfully")
+    getData()
   })
   .catch((err)=>{
     console.log(err)
@@ -62,18 +63,18 @@ const handleEdit=(noteID)=>{
     category
   }
   setIsLoading(true)
-  axios.patch(`${baseUrl}/update/${noteID}`,payload,{
+  axios.patch(`${baseUrl}/notes/editNote/${noteID}`,payload,{
     headers:{
-      authorization:`Bearer ${localStorage.getItem("token")}`
+      authorization:`Bearer ${localStorage.getItem("laudcoToken")}`
     }
   })
   .then((res)=>{
     setIsLoading(false)
+    alert("Note Edited Successfully")
     getData()
     setTitle(" ")
     setNote(" ")
     setCategory(" ")
-    alert("Note Edited Successfully")
   })
 }
 
@@ -82,13 +83,13 @@ if(isLoading){
 }
 
 
-  return (
+return (
     <>
     <Box>
       <Heading m='10'>All Notes Here</Heading>
       <Grid gridTemplateColumns={["repeat(1,1fr)","repeat(2,1fr)","repeat(2,1fr)","repeat(4,1fr)"]} gap='15px'>
       {
-        data && data.length>0 && data.map((notes)=>{
+       data.length<=0?<Text>Currently you have no notes</Text>:data && data.length>0 && data.map((notes)=>{
           return( 
             <>
             <GridItem p={2} boxShadow='rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px' key={notes._id} >
@@ -105,7 +106,7 @@ if(isLoading){
 <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
                     <ModalOverlay />
                     <ModalContent>
-                    <ModalHeader>Update Profile</ModalHeader>
+                    <ModalHeader>Update Note</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody mt='-8'>
                         <Flex direction="column" gap="10px" mt="50px">

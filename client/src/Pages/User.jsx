@@ -13,9 +13,9 @@ const User = () => {
 
   const getProfile=()=>{
     axios.get(`${baseUrl}/user/details`,{
-      headers:{
-        authorization:`Bearer ${localStorage.getItem("laudcoToken")}`
-      }
+      // headers:{
+      //   authorization:`Bearer ${localStorage.getItem("laudcoToken")}`
+      // }
     })
     .then((res)=>{
       console.log(res.data)

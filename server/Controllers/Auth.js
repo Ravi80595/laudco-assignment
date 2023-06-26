@@ -46,7 +46,18 @@ export const login = async(req,res)=>{
         console.log(err)
     }
 }
+// ........................... User Profile Get Method ...............................
 
+export const getUserProfile = async (req, res) => {
+    try {
+        const userID = req.user.id
+        // console.log(userID)
+        const user = await User.findById(userID)
+        res.status(200).json(user)
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 // ........................... User Get Method ...............................
 
@@ -56,6 +67,65 @@ export const getUser = async (req, res) => {
         const user = await User.findById(id)
         res.status(200).json(user)
     } catch (err) {
+        console.log(err)
+    }
+}
+
+// ...........................All Users Get Method ...............................
+
+export const AllUsers=async(req,res)=>{
+    try{
+       const users=await User.find()
+       res.status(200).send(users)
+    }catch (err) {
+        console.log(err)
+    }
+}
+
+// ........................... User Search Method ...............................
+
+export const searchUser=async(req,res)=>{
+    const params=req.params.id
+    try{
+        const users= await User.find({name:{$regex:req.params.id}})
+        res.send(users)
+    }catch (err) {
+        console.log(err)
+    }
+}
+
+// ........................... User Search Method by Age ...............................
+
+export const searchUserbyAge=async(req,res)=>{
+    const params=req.params.id
+    try{
+        const users= await User.find({age:{$regex:req.params.id}})
+        res.send(users)
+    }catch (err) {
+        console.log(err)
+    }
+}
+
+
+// ........................... User Search Method by Age ...............................
+
+export const searchUserbyEmail=async(req,res)=>{
+    const params=req.params.id
+    try{
+        const users= await User.find({email:{$regex:req.params.id}})
+        res.send(users)
+    }catch (err) {
+        console.log(err)
+    }
+}
+// ........................... User Search Method by Phone ...............................
+
+export const searchUserbyPhone=async(req,res)=>{
+    const params=req.params.id
+    try{
+        const users= await User.find({phone:{$regex:req.params.id}})
+        res.send(users)
+    }catch (err) {
         console.log(err)
     }
 }

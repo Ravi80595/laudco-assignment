@@ -16,7 +16,10 @@ import AllNotes from "../Pages/AllNotes"
 import User from './User'
 import { useEffect } from 'react'
 // import Contact from './Contact'
-import AdminPage from "./AdminPage"
+import AdminPage from "./UsersPage"
+import UsersPage from './UsersPage'
+import { baseUrl } from '../Utils/BaseUrl'
+import axios from 'axios'
 // import AdminLogin from './AdminLogin'
 
 
@@ -24,6 +27,7 @@ const Dashboard = () => {
   const [show,setShow]=useState("Users")
   const [usershow,setUserShow] = useState("")
   const navigate=useNavigate()
+  const [profile,setProfile]=useState([])
   let r=`Bearer ${localStorage.getItem("token")}`
 
 
@@ -38,27 +42,37 @@ const getShow=()=>{
 }
 useEffect(()=>{
   getShow()
+  getUser()
 },[])
+
+const getUser=()=>{
+  console.log('user')
+  axios.get(`${baseUrl}/user/userProfile`,{
+    headers:{
+      authorization:`Bearer ${localStorage.getItem("laudcoToken")}`
+    }
+  }).then((res)=>{
+    console.log(res.data)
+    setProfile(res.data)
+  })
+}
+
 
  {/* ..................  Logout method Here ........................ */}
 
  const handleLogout=()=>{
   const emptyToken="null"
-  localStorage.setItem("token",emptyToken)
+  localStorage.setItem("laudcoToken",emptyToken)
   navigate("/login")
 }
-
+// console.log(Profile)
   return (
     <Flex w='100%'>               
       <Box id='lhsBox' w={["5%","10%","16%"]} h='100vh' p='20px'>
-        {/* {
-          usershow==="show"?<Box>
-          <Link to='/sign'>
-          <Button p={["0px 0px","0px 70px","0px 70px","0px 100px"]}>Signup</Button>
-         </Link>
-        </Box>:
-            }  */}
-            <User/>
+            {/* <User/> */}
+            <Box h={35}>
+              <Text>Hello {profile.name}</Text>
+            </Box>
         <Box id='linkBox'>
           <hr />
           <Flex id='usersBox' p='7px 17px' className='linkItem' onClick={()=>setShow("Users")}>
@@ -75,7 +89,7 @@ useEffect(()=>{
           </Flex> */}
           <Flex id='usersBox' p='7px 17px' className='linkItem' onClick={()=>setShow('Trash')}>
           <CiDiscount1 className='lhsLogo'/>
-          <Text pl='15px' className="lhsName">Trash</Text>
+          <Text pl='15px' className="lhsName">All Users</Text>
           </Flex>
           <hr />
         </Box>
@@ -83,13 +97,13 @@ useEffect(()=>{
       <Box id='rhsBox' w='84%' ml='16%' h='auto'> 
         <Box id='navbarBox'  p='0px 40px'>
           <Flex justifyContent='space-between' pt={3} mb={3}>
-            <Text fontWeight='bold'>Evert Note</Text>
+            <Text fontWeight='bold'>Laudco Media</Text>
             <Button _hover={{bg:"rgb(134, 130, 238)",color:"white"}} onClick={handleLogout} mb={2} >Log Out</Button>
           </Flex>
         </Box>
       <Box id='rhsBody' m='30px' p='30px'>
         {
-          show==="Users"?<AllNotes/>:show==3?<CreateNote/>:'Feature Available soon'
+          show==="Users"?<AllNotes/>:show==3?<CreateNote/>:<UsersPage/>
         }
       </Box>
       </Box>

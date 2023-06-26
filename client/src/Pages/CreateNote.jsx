@@ -9,7 +9,10 @@ const CreateNote = () => {
     const [note,setNote] = useState("")
     const [category,setCategory] = useState("")
 
+
 // ........................... Create Method here ........................
+
+const token = localStorage.getItem("laudcoToken")
 
 const handleAdd=()=>{
   const payload={
@@ -19,7 +22,7 @@ const handleAdd=()=>{
   }
 axios.post(`${baseUrl}/notes/createNote`,payload,{
   headers:{
-    authorization:`Bearer ${localStorage.getItem("laudcoToken")}`
+    Authorization:`Bearer ${token}`
   }
 })
 .then((res)=>{

@@ -5,11 +5,10 @@ const Authenticate = (req, res, next) => {
     res.status(401).json({ message: 'Unauthorized' });
     return;
   }
-  const token = req.headers.authorization.split(' ')[1];
-  if (token.startsWith('"') && token.endsWith('"')) {
-    token = token.slice(1, -1);
-  }
-  console.log(token)
+  const token = req.headers.authorization.split(' ')[1].slice(1,-1)
+  // if (token.startsWith('"') && token.endsWith('"')) {
+  //   token = token.slice(1, -1);
+  // console.log(token)
   jwt.verify(token, 'ravi', (err, decoded) => {
     if (err) {
       res.status(401).json({ message: 'Unauthorized' });
@@ -17,6 +16,7 @@ const Authenticate = (req, res, next) => {
     }
     req.user = decoded;
     next();
+    // }
   });
 };
 
