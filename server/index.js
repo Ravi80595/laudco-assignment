@@ -3,7 +3,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import userRoutes from './Routes/users.js'
-
+import noteRoutes from './Routes/notes.js'
 
 const app = express()
 app.use(cors())
@@ -11,6 +11,7 @@ app.use(express.json())
 dotenv.config()
 
 app.use("/user",userRoutes)
+app.use("/notes",noteRoutes)
 
 
 const PORT = process.env.PORT || 3001

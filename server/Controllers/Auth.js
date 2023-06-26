@@ -40,9 +40,22 @@ export const login = async(req,res)=>{
 
         const token= jwt.sign({id:user._id},process.env.JWT_KEY)
         delete user.password;
-        res.status(200).json({token,user})
+        res.status(200).send(token)
 
     }catch(err){
+        console.log(err)
+    }
+}
+
+
+// ........................... User Get Method ...............................
+
+export const getUser = async (req, res) => {
+    try {
+        const { id } = req.params
+        const user = await User.findById(id)
+        res.status(200).json(user)
+    } catch (err) {
         console.log(err)
     }
 }
