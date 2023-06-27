@@ -1,4 +1,6 @@
 
 
 
-export const baseUrl='http://localhost:3002'
+export const baseUrl='https://lime-concerned-toad.cyclic.app'
+
+// 'http://localhost:3002'
