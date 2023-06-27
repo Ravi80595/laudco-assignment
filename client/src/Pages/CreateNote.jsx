@@ -40,7 +40,7 @@ axios.post(`${baseUrl}/notes/createNote`,payload,{
   return (
     <Box>
       <Heading fontSize={[20,10,20,30]}>Create Note Here</Heading>
-      <Stack w={["100%","80%","80%","30%"]} m='auto' mt={5} p={10} boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px' textAlign='left'>
+      <Stack w={["100%","80%","80%","30%"]} m='auto' mt={5} p={[5,0,0,10]} boxShadow='rgba(0, 0, 0, 0.35) 0px 5px 15px' textAlign='left'>
       <label>Title</label>
       <Input type='text' placholder="Enter Title" value={title} onChange={(e)=>setTitle(e.target.value)}/>
       <label>Category</label>
